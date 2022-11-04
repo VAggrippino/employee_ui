@@ -25,9 +25,6 @@ function App() {
         const employees = response.data.employees;
         unsortedEmployees.current = employees.slice();
 
-        // TODO: Why is this firing twice?
-        console.log(`employees retrieved`);
-
         setEmployees(employees);
         setTotalPages(Math.ceil(employees.length / ITEMS_PER_PAGE));
       })
@@ -40,8 +37,6 @@ function App() {
     axios.get(`${API}/employees/search/${query}`)
       .then((response) => {
         const employees = response.data;
-        console.log(`search results retrieved`);
-
         setEmployees(employees);
         setTotalPages(Math.ceil(employees.length / ITEMS_PER_PAGE));
       })

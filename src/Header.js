@@ -6,8 +6,12 @@ export default function Header(props) {
   const [searchVisible, setSearchVisible] = useState(false);
 
   useEffect(() => {
-    console.log(`setting window click handler`);
-    window.addEventListener(`click`, () => setSearchVisible(false));
+    const handler = () => setSearchVisible(false);
+    window.addEventListener(`click`, handler);
+
+    return () => {
+      window.removeEventListener(`click`, handler);
+    }
   }, []);
 
   const searchHandler = (event) => {
