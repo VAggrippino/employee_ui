@@ -3,6 +3,8 @@ export default function Pagination(props) {
   const totalPages = props.totalPages;
   const setCurrentPage = props.setCurrentPage;
 
+  if (totalPages < 2) return null;
+
   return (
     <div className="pagination">
       <ul>

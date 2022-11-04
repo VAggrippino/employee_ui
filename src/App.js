@@ -36,6 +36,20 @@ function App() {
       });
   }, []);
 
+  const searchHandler = (query) => {
+    axios.get(`${API}/employees/search/${query}`)
+      .then((response) => {
+        const employees = response.data;
+        console.log(`search results retrieved`);
+
+        setEmployees(employees);
+        setTotalPages(Math.ceil(employees.length / ITEMS_PER_PAGE));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const start = (currentPage - 1) * ITEMS_PER_PAGE;
   const end = (start + ITEMS_PER_PAGE > employees.length - 1) ? undefined : start + ITEMS_PER_PAGE;
   const employeesThisPage = employees.slice(start, end);
@@ -83,7 +97,7 @@ function App() {
   return (
     <>
     <main className="container">
-      <Header />
+      <Header searchHandler={searchHandler} />
       <div className="employees">
         <div className="employees__header tr">
           <button type="button" data-column="name" onClick={selectSort}>

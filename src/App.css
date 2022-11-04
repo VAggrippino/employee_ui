@@ -4,7 +4,6 @@
   --gray: #ddd;
   --black: #111;
   --white: ghostwhite;
-  font-family: sans-serif;
 }
 
 *, *::before, *::after {
@@ -17,6 +16,7 @@ html, body {
 
 body {
   background-color: var(--black);
+  font-family: sans-serif;
 }
 
 body > * {
@@ -29,6 +29,7 @@ body > * {
   flex-wrap: wrap;
   background-color: var(--black);
   box-shadow: 0 2px 4px rgb(0, 0, 0, 0.5);
+  padding-inline: var(--padding-x);
 }
 
 .header :is(.header__hamburger, a, a:visited, a:active) {
@@ -41,13 +42,16 @@ body > * {
 }
 
 .header__hamburger {
-  width: var(--header-height);
   height: 100%;
   display: grid;
   place-items: center;
 }
 
-.header ul {
+.header__nav {
+  margin-right: auto;
+}
+
+.header__nav ul {
   margin: 0;
   padding: 0 1rem;
   display: flex;
@@ -58,7 +62,60 @@ body > * {
 }
 
 .header__actions {
-  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.header__actions button {
+  border-style: none;
+  background-color: var(--black);
+  color: var(--white);
+  height: 1.5rem;
+  transition: background-color 500ms, color 500ms;
+}
+
+.search {
+  display: flex;
+  overflow: hidden;
+  background-color: var(--white);
+}
+
+.search__input {
+  display: flex;
+  align-items: center;
+  width: 20rem;
+  max-width: 0;
+  height: 1.5rem;
+  border-style: none;
+  padding: 0;
+  background-color: transparent;
+  transition: max-width 500ms;
+  overflow: hidden;
+}
+
+.search__input:focus {
+  outline: none;
+}
+
+.search.visible {
+  border-radius: 1rem 5px 5px 1rem;
+}
+
+.search.visible .search__input {
+  max-width: 20rem;
+  padding-inline: 1rem;
+}
+
+.search.visible:has(.search__input:focus) {
+  box-shadow:
+    0 0 0 1px black,
+    0 0 0 2px white;
+}
+
+.search.visible .search__button {
+  background-color: transparent;
+  color: var(--black);
 }
 
 .pageHeader {
@@ -152,8 +209,7 @@ body > * {
   background-color: var(--black);
   color: white;
   height: var(--header-height);
-  bottom: 0;
-  left: 0;
+  margin-top: 2rem;
   padding-inline: var(--padding-x);
   font-size: 0.75rem;
   box-shadow: 0 -2px 4px rgb(0, 0, 0, 0.5);
